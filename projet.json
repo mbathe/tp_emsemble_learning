@@ -1,0 +1,51 @@
+/*
+    enum des statuts de réponse USSD
+    The USSD network response status codes are part of the standard codes defined in 3GPP TS 27.007, which is the specification for AT commands used in GSM/UMTS/LTE mobile devices. These codes indicate the state of a USSD (Unstructured Supplementary Service Data) session or operation.
+*/
+export enum E_USSD_RESPONSE_STATUS {
+    /*
+        This status is returned when the USSD session does not require any more interaction from the user.
+        It occurs either when the network initiates a USSD Notify, which is an informational message, or when the mobile-initiated operation completes without needing further input.
+        Example useCase : 
+        - You query your mobile balance, and the network sends a one-time informational response (e.g., "Your balance is $10").
+    */
+    NO_FURTHER_USER_ACTION_REQUIRED = 0,
+    
+    
+    /*
+        This status indicates that the USSD session is interactive and expects the user to respond with additional input.
+        It can happen in a network-initiated USSD Request or in a multi-step mobile-initiated operation.
+        Example useCase :
+        - A banking USSD session where you are asked to input the amount to transfer after selecting a beneficiary.
+    */
+    FORTHUR_USER_ACTION_REQUIRED = 1,
+    
+    /*
+        This indicates that the network has decided to terminate the USSD session. This can happen for various reasons, such as session timeout, network issues, or an intentional session close by the service provider.
+        Example useCase :
+        You start a USSD operation, but the session ends before completing due to inactivity or a network decision.
+    */
+    USSD_TERMINATED_BY_NETWORK = 2,
+    /**
+     * 
+        This status shows that a different application or client on the device has responded to the USSD request.
+        Typically seen in multi-SIM devices or devices running USSD services concurrently.
+        Example useCase :
+        - Your dual-SIM phone's SIM1 initiates a USSD session, but the SIM2 client intercepts and responds.
+     */
+    ANOTHER_LOCAL_CLIENT_HAS_RESPONDED = 3,
+    
+    /*
+        The requested operation is not supported by the network or the device.
+        Example useCase :
+         - You attempt a USSD operation with an unsupported command or an unsupported feature by your carrier.
+    */
+    OPERATION_NOT_SUPPORTED = 4,
+    
+    /*
+        This indicates that the network did not respond within the expected time for the USSD operation.
+        Example useCase :
+         - You initiate a USSD session, but due to poor signal strength, the network does not respond, causing the session to time out.
+    */
+    NETWORK_TIMEOUT = 5,
+}
